@@ -82,7 +82,7 @@ def main(
             summary = downloader.get_summary()
         except Exception as e:
             ui.live.stop()
-            console.print(f"\n[bold red]Произошла к��итическая ошибка:[/bold red] {e}")
+            console.print(f"\n[bold red]Произошла критическая ошибка:[/bold red] {e}")
             sys.exit(1)
 
     # Выводим финальную сводку
