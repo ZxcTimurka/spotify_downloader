@@ -16,7 +16,7 @@
 
 1.  **Клонируйте репозиторий:**
     ```bash
-    git clone <URL-репозитория>
+    git clone https://github.com/ZxcTimurka/spotify_downloader.git
     cd spotify-downloader
     ```
 
