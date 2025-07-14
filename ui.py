@@ -1,7 +1,7 @@
-
+"""
 Модуль для управления и отображения пользовательского интерфейса в терминале
 с использованием библиотеки rich.
-
+"""
 
 from rich.console import Group
 from rich.layout import Layout
