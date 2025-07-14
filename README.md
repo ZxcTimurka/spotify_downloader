@@ -40,7 +40,7 @@
 
 5.  **(Опционально) Настройка для загрузки текстов песен:**
     Чтобы скачивать тексты, вам нужен API-ключ от **Genius**.
-    - Перейдите на [Genius API Clients](https://genius.com/api-clients) и создайте ново��о клиента, чтобы получить `Access Token`.
+    - Перейдите на [Genius API Clients](https://genius.com/api-clients) и создайте новогоо клиента, чтобы получить `Access Token`.
     - Скопируйте файл `.env.example` в новый файл с именем `.env`:
       ```bash
       cp .env.example .env
