@@ -1,4 +1,3 @@
-
 """
 Главный файл для запуска CLI-приложения Spotify Downloader.
 Использует Typer для обработки аргументов командной строки.
@@ -9,12 +8,9 @@ from pathlib import Path
 from typing_extensions import Annotated
 
 import typer
-from rich.console import Console
-from rich.panel import Panel
-from rich.text import Text
 
+import ui
 from downloader import SpotifyDownloader
-from ui import UIManager
 
 # Создаем экземпляр Typer
 app = typer.Typer(
@@ -22,8 +18,6 @@ app = typer.Typer(
     help="🎵 Утилита для массовой загрузки треков из Spotify по списку из .txt файла.",
     add_completion=False,
 )
-
-console = Console()
 
 
 @app.command(
@@ -70,38 +64,24 @@ def main(
     # Создаем директорию, если она не существует
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    # Запускаем UI менеджер
-    with UIManager() as ui:
-        try:
-            downloader = SpotifyDownloader(
-                output_dir=output_dir,
-                download_lyrics=lyrics,
-                ui=ui,
-            )
-            downloader.download_from_list(input_file)
-            summary = downloader.get_summary()
-        except Exception as e:
-            ui.live.stop()
-            console.print(f"\n[bold red]Произошла критическая ошибка:[/bold red] {e}")
-            sys.exit(1)
+    ui.print_header()
+
+    try:
+        downloader = SpotifyDownloader(
+            output_dir=output_dir,
+            download_lyrics=lyrics,
+        )
+        downloader.download_from_list(input_file)
+        summary = downloader.get_summary()
+    except Exception as e:
+        ui.log(f"\n[bold red]Произошла критическая ошибка:[/bold red] {e}")
+        import traceback
+        traceback.print_exc()
+        sys.exit(1)
 
     # Выводим финальную сводку
-    summary_text = Text(justify="left")
-    summary_text.append(f"✅ Успешно скачано: {summary['success']}\n", style="green")
-    summary_text.append(f"❌ Не удалось: {summary['failed']}\n", style="red")
-    summary_text.append(f"⏱️ Общая длительность: {summary['total_duration']}", style="blue")
-
-    console.print(
-        Panel(
-            summary_text,
-            title="[bold yellow]Итоги сессии[/bold yellow]",
-            border_style="yellow",
-            padding=(1, 2),
-            expand=False,
-        )
-    )
+    ui.print_summary(summary)
 
 
 if __name__ == "__main__":
     app()
-

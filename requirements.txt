@@ -1,5 +1,6 @@
 spotdl==4.2.11
-lyricsgenius==3.0.1
+syncedlyrics==1.0.1
 rich==13.9.4
 typer[all]==0.12.3
 python-dotenv==1.0.1
+spotipy==2.25.1
