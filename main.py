@@ -1,8 +1,3 @@
-"""
-Главный файл для запуска CLI-приложения Spotify Downloader.
-Использует Typer для обработки аргументов командной строки.
-"""
-
 import sys
 from pathlib import Path
 from typing_extensions import Annotated
@@ -12,7 +7,6 @@ import typer
 import ui
 from downloader import SpotifyDownloader
 
-# Создаем экземпляр Typer
 app = typer.Typer(
     name="spotify-downloader",
     help="🎵 Утилита для массовой загрузки треков из Spotify по списку из .txt файла.",
@@ -58,10 +52,6 @@ def main(
         ),
     ] = True,
 ):
-    """
-    Основная функция, запускающая процесс загрузки.
-    """
-    # Создаем директорию, если она не существует
     output_dir.mkdir(parents=True, exist_ok=True)
 
     ui.print_header()
@@ -79,7 +69,6 @@ def main(
         traceback.print_exc()
         sys.exit(1)
 
-    # Выводим финальную сводку
     ui.print_summary(summary)
 
 
