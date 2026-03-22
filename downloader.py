@@ -1,8 +1,3 @@
-
-"""
-Основной модуль, отвечающий за логику загрузки треков.
-"""
-
 import os
 import logging
 from pathlib import Path
@@ -17,22 +12,16 @@ from dotenv import load_dotenv
 import ui
 from lyrics import LyricsFetcher
 
-# Загружаем переменные окружения из .env файла
 load_dotenv()
 
 
 class SpotifyDownloader:
-    """
-    Класс-оркестратор для процесса загрузки.
-    """
-
     def __init__(self, output_dir: Path, download_lyrics: bool):
         self.output_dir = output_dir
         self.download_lyrics = download_lyrics
         self.lyrics_fetcher = LyricsFetcher() if download_lyrics else None
         self.match_threshold = 90  # Общий порог схожести, используется для запросов без исполнителя
 
-        # Настройка SpotDL
         downloader_settings = {
             "output": str(self.output_dir / "{artist} - {title}.{output-ext}"),
             "ffmpeg": "ffmpeg",
@@ -60,9 +49,6 @@ class SpotifyDownloader:
         }
 
     def download_from_list(self, file_path: Path):
-        """
-        Загружает треки из текстового файла, обрабатывая каждый запрос поочередно.
-        """
         try:
             with open(file_path, "r", encoding="utf-8") as f:
                 queries = [line.strip() for line in f if line.strip()]
